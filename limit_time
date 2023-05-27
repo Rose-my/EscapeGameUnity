@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
+
+public class timer : MonoBehaviour
+{
+    [SerializeField] TextMeshProUGUI timerText;
+    public float LimitTime = 480f; //8minutes given to the player 
+    private float elapsedTime = 0f; //player time
+
+    private void Start(){
+        UpdateTimerText();
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        //LimitTime = Time.deltaTime;
+        if (elapsedTime >= LimitTime)
+        {
+            Debug.Log("Time Over");
+            SceneManager.LoadScene("end_gameover");
+            return;
+        }
+
+        //update the elapsed time
+        elapsedTime += Time.deltaTime;
+
+        //update the timer text
+        UpdateTimerText();
+    }
+
+    private void UpdateTimerText()
+    {
+        //calculate minutes and seconds
+        int minutes = Mathf.FloorToInt(elapsedTime / 60f);
+        int seconds = Mathf.FloorToInt(elapsedTime % 60f);
+
+        // Update the timer text
+        timerText.text = string.Format("PlayerTime {0:00}:{1:00}", minutes, seconds);
+    }
+}
