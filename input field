@@ -1,24 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
-public class InputHandler : MonoBehaviour {
+public class endpage : MonoBehaviour
+{
     [SerializeField] TMP_InputField nameInput;
-    [SerializeField] string filename;
+    public Button submit;
 
-    List<InputEntry> entries = new List<InputEntry> ();
-
-    private void Start() {
-        entries = FileHandler.ReadListFromJSON<InputEntry> (filename);
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
-    public void AddNameToList () {
-        entries.Add (new InputEntry (nameInput.text, Random.Range (0, 100)));
-        nameInput.text = "";
+    // Update is called once per frame
+    public void UpdateSubmit()
+    {
+        // Get the text entered by the user
+        string userInput = nameInput.text;
 
-        FileHandler.SaveToJSON<InputEntry> (entries, filename);
+        // Save the user input using PlayerPrefs or any other desired method
+        PlayerPrefs.SetString("UserInput", userInput);
+
+        // Change the scene to the desired scene
+        SceneManager.LoadScene("start");
     }
-
 }
