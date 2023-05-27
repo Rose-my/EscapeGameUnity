@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+//랭킹을 보여주는 코드 
+
+//플레이어 이름, 점수 텍스트를 현재 나의 이름과 점수에 표시
+RankNameCurrent.text = PlayerPrefs.GetString("CurrentPlayerName");
+RankScoreCurrent.text = string.Format("{0:N3}cm", PlayerPrefs.GetFloat("CurrentPlayerScore"));
+
+//랭킹에 맞춰 불러온 점수와 이름을 표시하는 부분
+for(int i =0; i<5;i++)
+{
+    rankScore[i]=PlayerPrefs.GetFloat(i +"BestScore");
+    RankScoreText[i].text = string.Formant("{0:N3}cm",rankScore[i]);
+    rankName[i]=PlayerPrefs.GetString(i.ToString()+"BestName");
+    RankNameText[i].text = string.Format(rankName[i]);
+
+    //강조 표시
+    if (RankScoreCurrent.text == RankScoreText[i].text)
+    {
+        Color Rank = new Color(255,225,0);
+        RankText[i].color = Rank;
+        RankNameText[i].color = Rank;
+        RankScoreText[i].color = Rank;
+    }
+}
